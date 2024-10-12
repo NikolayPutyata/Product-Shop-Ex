@@ -1,1 +1,1 @@
-# Product-Shop-Ex
+Product shop example
