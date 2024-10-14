@@ -1,16 +1,18 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { fetchCartProducts } from "../../redux/cartOps";
 import {
-  decreaseProductCount,
-  deleteProduct,
-  fetchCartProducts,
-  increaseProductCount,
-} from "../../redux/cartOps";
-import { selectAmount, selectCartItems } from "../../redux/cartSlice";
+  selectAmount,
+  selectCartItems,
+  selectIsLoading,
+} from "../../redux/cartSlice";
+import Loader from "../../components/Loader/Loader";
+import CartItem from "./CartItem";
 
 const Cart = () => {
   const dispatch = useDispatch();
   const cartItems = useSelector(selectCartItems);
+  const isLoading = useSelector(selectIsLoading);
   const totalAmount = useSelector(selectAmount);
 
   useEffect(() => {
@@ -20,28 +22,18 @@ const Cart = () => {
   return (
     <div>
       <h1>Cart</h1>
-      <p>Total: ${totalAmount}</p>
-      <ul>
-        {cartItems.map((product) => (
-          <li key={product.id}>
-            <img src={product.thumbnail} />
-            <p>Price: {product.price}</p>
-            <p>Total: {product.price * product.count}</p>
-            <div>
-              <button onClick={() => dispatch(increaseProductCount(product))}>
-                +
-              </button>
-              <p>{product.count}</p>
-              <button onClick={() => dispatch(decreaseProductCount(product))}>
-                -
-              </button>
-            </div>
-            <button onClick={() => dispatch(deleteProduct(product))}>
-              Delete
-            </button>
-          </li>
-        ))}
-      </ul>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <div>
+          <p>Total: ${totalAmount}</p>
+          <ul>
+            {cartItems.map((product) => (
+              <CartItem key={product.id} product={product} />
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };
