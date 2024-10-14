@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, Outlet, useLocation, useParams } from "react-router-dom";
 import { addToCart } from "../../redux/cartOps";
 import { useDispatch } from "react-redux";
-import { nanoid } from "nanoid";
 import { fetchProductById } from "../../api";
 
 const Product = () => {
@@ -33,27 +32,12 @@ const Product = () => {
       <div>
         <img src={product.thumbnail} />
         <p>{product.title}</p>
-        <ul>
-          {product.tags?.map((i) => (
-            <li key={nanoid()}>{i}</li>
-          ))}
-        </ul>
         <p>${product.price}</p>
         <button onClick={() => dispatch(addToCart(product))}>
           Add to cart
         </button>
-        <p>Rating: {product.rating}</p>
-        <p>About: {product.description}</p>
-        <h3>Reviews:</h3>
-        <ul>
-          {product.reviews?.map(({ comment, reviewerName }) => (
-            <li key={nanoid()}>
-              <h4>{reviewerName}</h4>
-
-              <p>{comment}</p>
-            </li>
-          ))}
-        </ul>
+        <Link to="info">Info</Link>
+        <Outlet />
       </div>
     </>
   );

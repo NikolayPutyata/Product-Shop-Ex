@@ -30,3 +30,14 @@ export const fetchProductById = async (productId) => {
     console.log(e);
   }
 };
+
+export const searchProductByQuery = async (query) => {
+  try {
+    const { data } = await axios.get(
+      `https://dummyjson.com/products/search?q=${query}`
+    );
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
+};

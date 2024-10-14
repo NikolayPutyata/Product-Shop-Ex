@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import ListItem from "../../components/ListItem/ListItem";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Loader from "../../components/Loader/Loader";
 import { fetchProducts, getMoreProducts } from "../../api";
 
@@ -38,6 +38,10 @@ const Products = () => {
       <h1>Products</h1>
       {products.length > 0 ? (
         <>
+          <h2>
+            Didn&apos;t find the product you want?
+            <Link to="/search">Search!</Link>
+          </h2>
           <ul>
             {products.map((product) => (
               <li key={product.id}>
