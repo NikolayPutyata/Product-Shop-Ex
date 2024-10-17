@@ -11,8 +11,8 @@ const CartItem = ({ product }) => {
   return (
     <li key={product.id}>
       <img src={product.thumbnail} />
-      <p>Price: {product.price}</p>
-      <p>Total: {(product.price * product.count).toFixed(2)}</p>
+      <p>Price: ${product.price}</p>
+      <p>Total: ${(product.price * product.count).toFixed(2)}</p>
       <div>
         <button onClick={() => dispatch(increaseProductCount(product))}>
           +
