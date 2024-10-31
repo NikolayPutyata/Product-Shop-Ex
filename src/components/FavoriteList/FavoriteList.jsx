@@ -16,19 +16,23 @@ const FavoriteList = () => {
   return (
     <div>
       <h2>Your Favorite</h2>
-      <ul className="flex flex-wrap gap-8 justify-center">
+      <ul className="flex flex-wrap gap-4 justify-center">
         {favoriteList?.map((item) => (
           <li key={item.id}>
-            <div className="card bg-base-100 w-96 shadow-xl">
-              <Link to={`/products/${item.id}`} state={location}>
+            <div className="card bg-base-100 w-48 shadow-xl transform transition duration-200 hover:scale-105">
+              <Link to={`/products/${item.id}`}>
                 <figure>
-                  <img src={item.thumbnail} />
+                  <img
+                    src={item.thumbnail}
+                    alt={item.title}
+                    className="rounded-t-lg"
+                  />
                 </figure>
+                <div className="card-body">
+                  <h6 className="card-title">{item.title}</h6>
+                  <p>${item.price}</p>
+                </div>
               </Link>
-              <div className="card-body">
-                <h2 className="card-title">{item.title}</h2>
-                <p>${item.price}</p>
-              </div>
             </div>
           </li>
         ))}

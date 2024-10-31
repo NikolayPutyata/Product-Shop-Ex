@@ -7,6 +7,7 @@ import Cart from "./pages/Cart/Cart";
 import NotFound from "./pages/NotFound/NotFound";
 import ProductDetails from "./components/ProductDetails/ProductDetails";
 import SearchBox from "./pages/SearchBox/SearchBox";
+import Footer from "./components/Footer/Footer";
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
         <Route path="/search" element={<SearchBox />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <Footer />
     </>
   );
 };

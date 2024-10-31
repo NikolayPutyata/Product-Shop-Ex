@@ -18,6 +18,8 @@ const Product = () => {
     const fetchAndSetProductById = async () => {
       try {
         const data = await fetchProductById(productId);
+        console.log(data);
+
         setProduct(data);
       } catch (e) {
         console.log(e);
@@ -29,16 +31,26 @@ const Product = () => {
   return (
     <>
       <Link to={backState.current}>Back</Link>
-      <div>
-        <img src={product.thumbnail} />
-        <p>{product.title}</p>
-        <p>${product.price}</p>
-        <button onClick={() => dispatch(addToCart(product))}>
-          Add to cart
-        </button>
-        <Link to="info">Info</Link>
-        <Outlet />
+      <div className="hero bg-base-200">
+        <div className="hero-content flex-col lg:flex-row">
+          <img
+            src={product.images ? product.images[0] : product.trumbnail}
+            className="max-w-xl rounded-lg shadow-2xl"
+          />
+          <div>
+            <h1 className="text-5xl font-bold">{product.title}</h1>
+            <p className="py-6 text-xl font-bold">${product.price}</p>
+            <button
+              className="btn btn-lg btn-primary"
+              onClick={() => dispatch(addToCart(product))}
+            >
+              Add to cart
+            </button>
+          </div>
+        </div>
       </div>
+      <Link to="info">Info</Link>
+      <Outlet />
     </>
   );
 };

@@ -27,11 +27,11 @@ const SearchBox = () => {
 
   return (
     <div className="">
-      <div className="flex flex-col pl-10 pr-10">
+      <div className="flex flex-col pl-12 pr-12 mt-4">
         <SearchForm setSearchingWord={setSearchingWord} />
       </div>
 
-      <ul className="">
+      <ul className="flex flex-wrap justify-center gap-4 mt-10">
         {searchProducts?.map((product) => (
           <ListItem key={product.id} product={product} />
         ))}
