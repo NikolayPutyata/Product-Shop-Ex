@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import ListItem from "../../components/ListItem/ListItem";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Loader from "../../components/Loader/Loader";
 import { fetchProducts, getMoreProducts } from "../../api";
 
@@ -35,14 +35,9 @@ const Products = () => {
 
   return (
     <div>
-      <h1>Products</h1>
       {products.length > 0 ? (
         <>
-          <h2>
-            Didn&apos;t find the product you want?
-            <Link to="/search">Search!</Link>
-          </h2>
-          <ul>
+          <ul className="flex flex-wrap justify-center gap-4">
             {products.map((product) => (
               <li key={product.id}>
                 <ListItem product={product} location={location} />

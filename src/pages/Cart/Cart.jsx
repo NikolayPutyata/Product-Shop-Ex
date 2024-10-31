@@ -21,13 +21,12 @@ const Cart = () => {
 
   return (
     <div>
-      <h1>Cart</h1>
       {isLoading ? (
         <Loader />
       ) : (
         <div>
           <p>Total: ${totalAmount}</p>
-          <ul>
+          <ul className="flex-col justify-center items-center">
             {cartItems.map((product) => (
               <CartItem key={product.id} product={product} />
             ))}
