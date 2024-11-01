@@ -17,7 +17,6 @@ const Products = () => {
         console.log(products);
 
         setProducts(products);
-        setskipElements(12);
       } catch (e) {
         console.log(e);
       }

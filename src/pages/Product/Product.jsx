@@ -4,6 +4,7 @@ import { addToCart } from "../../redux/cartOps";
 import { useDispatch } from "react-redux";
 import { fetchProductById } from "../../api";
 import { nanoid } from "nanoid";
+import CarouselItem from "./CarouselItem";
 
 const Product = () => {
   const [product, setProduct] = useState({});
@@ -34,7 +35,11 @@ const Product = () => {
       <div className="hero bg-base-200 px-4 lg:px-8">
         <div className="hero-content flex-col lg:flex-row gap-6 lg:gap-12">
           <img
-            src={product.images ? product.images[0] : product.thumbnail}
+            src={
+              product.images && product.images.length <= 3
+                ? product.images[0]
+                : product.thumbnail
+            }
             className="w-full max-w-xs sm:max-w-md lg:max-w-xl rounded-lg shadow-2xl"
           />
           <div className="text-center lg:text-left">
@@ -74,6 +79,43 @@ const Product = () => {
         </div>
       </div>
 
+      {product.images && product.images.length <= 3 && (
+        <div className="flex flex-col lg:flex-row w-full gap-6 lg:gap-12 items-start lg:items-center">
+          <div className="carousel w-full lg:w-1/2">
+            <CarouselItem
+              id="slide1"
+              src={product.images && product.images[0]}
+              prevSlide="#slide3"
+              nextSlide="#slide2"
+            />
+            <CarouselItem
+              id="slide2"
+              src={product.images && product.images[1]}
+              prevSlide="#slide1"
+              nextSlide="#slide3"
+            />
+            <CarouselItem
+              id="slide3"
+              src={product.images && product.images[2]}
+              prevSlide="#slide2"
+              nextSlide="#slide1"
+            />
+          </div>
+          <p className="w-full lg:w-1/2 text-justify p-5">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus
+            saepe laudantium optio error nobis eligendi quibusdam deserunt iste,
+            aspernatur reprehenderit culpa ratione et deleniti ullam ipsam totam
+            ducimus, dignissimos non! Culpa, corporis. Voluptas, iure ipsum!
+            Architecto eum, asperiores sit obcaecati enim vero nemo sed at
+            placeat itaque ad ipsum nulla? Repudiandae ea quaerat, sit atque
+            quos velit quibusdam aliquam optio! Nesciunt rerum necessitatibus
+            exercitationem itaque quis quas voluptatem corrupti, vero iusto
+            architecto, aspernatur molestiae quo deleniti animi ratione ad
+            dolores, nostrum labore iure repellat at porro doloremque. Eaque,
+            voluptatem quo!
+          </p>
+        </div>
+      )}
       <Outlet />
     </>
   );
