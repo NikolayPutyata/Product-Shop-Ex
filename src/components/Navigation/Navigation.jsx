@@ -9,7 +9,7 @@ const Navigation = () => {
 
   return (
     <>
-      <div className="navbar bg-base-100 p-6 border">
+      <div className="navbar bg-base-100 p-1 md:p-2 lg:p-6 border">
         <div className="navbar-start">
           <div className="dropdown">
             <div
