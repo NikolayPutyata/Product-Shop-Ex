@@ -14,8 +14,10 @@ const Products = () => {
     const fetchAndSetProducts = async () => {
       try {
         const { products } = await fetchProducts();
+        console.log(products);
+
         setProducts(products);
-        setskipElements(10);
+        setskipElements(12);
       } catch (e) {
         console.log(e);
       }
@@ -23,11 +25,13 @@ const Products = () => {
     fetchAndSetProducts();
   }, []);
 
-  const loadMoreFu = async () => {
+  const loadPage = async (offset) => {
     try {
-      const data = await getMoreProducts(skipElements);
-      setProducts([...products, ...data.products]);
-      setskipElements((prev) => prev + 10);
+      const newSkip = skipElements + offset;
+      setskipElements(newSkip);
+
+      const data = await getMoreProducts(newSkip);
+      setProducts(data.products);
     } catch (e) {
       console.log(e);
     }
@@ -44,7 +48,23 @@ const Products = () => {
               </li>
             ))}
           </ul>
-          <button onClick={() => loadMoreFu()}>Load more</button>
+          <div className="flex justify-center mt-5 mb-5">
+            <div className="join grid grid-cols-2 gap-4 w-auto">
+              <button
+                className="join-item btn btn-outline"
+                onClick={() => loadPage(-12)}
+                disabled={skipElements === 0}
+              >
+                Previous page
+              </button>
+              <button
+                className="join-item btn btn-outline"
+                onClick={() => loadPage(12)}
+              >
+                Next
+              </button>
+            </div>
+          </div>
         </>
       ) : (
         <Loader />

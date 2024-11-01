@@ -15,24 +15,27 @@ const ListItem = ({ product, location }) => {
 
   return (
     <>
-      <div className="card bg-base-100 w-96 shadow-xl">
+      <div className="card bg-base-100 w-80 shadow-xl">
         <Link to={`/products/${product.id}`} state={location}>
-          <figure>
-            <img src={product.thumbnail} />
+          <figure className="flex justify-center items-center w-full h-[300px] overflow-hidden">
+            <img
+              src={product.images[1] ? product.images[1] : product.thumbnail}
+              className="w-full h-full object-cover"
+            />
           </figure>
         </Link>
         <div className="card-body">
-          <h2 className="card-title">{product.title}</h2>
+          <h2 className="card-title text-sm">{product.title}</h2>
           <p>${product.price}</p>
           <div className="card-actions justify-end">
             <button
-              className="btn btn-primary"
+              className="btn btn-outline"
               onClick={() => dispatch(addToCart(product))}
             >
               Add
             </button>
             <button
-              className="btn btn-primary"
+              className="btn btn-outline"
               onClick={() => addToFavoriteFu(product)}
             >
               Favorite

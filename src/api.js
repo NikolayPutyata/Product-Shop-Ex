@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const fetchProducts = async () => {
   try {
-    const { data } = await axios.get("https://dummyjson.com/products?limit=10");
+    const { data } = await axios.get("https://dummyjson.com/products?limit=12");
     return data;
   } catch (e) {
     console.log(e);
@@ -12,7 +12,7 @@ export const fetchProducts = async () => {
 export const getMoreProducts = async (skipElements) => {
   try {
     const { data } = await axios.get(
-      `https://dummyjson.com/products?limit=10&skip=${skipElements}`
+      `https://dummyjson.com/products?limit=12&skip=${skipElements}`
     );
     return data;
   } catch (e) {

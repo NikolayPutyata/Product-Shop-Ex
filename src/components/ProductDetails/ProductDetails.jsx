@@ -21,24 +21,28 @@ const ProductDetails = () => {
   }, [productId]);
 
   return (
-    <div>
-      <p>Rating: {product.rating}</p>
-      <p>About: {product.description}</p>
-      <ul>
-        {product.tags?.map((tag) => (
-          <li key={nanoid()}>{tag}</li>
-        ))}
-      </ul>
-      <h3>Reviews:</h3>
-      <ul>
-        {product.reviews?.map(({ comment, reviewerName }) => (
-          <li key={nanoid()}>
-            <h4>{reviewerName}</h4>
+    <div className="p-4 sm:p-6 lg:p-8 bg-base-100 rounded-lg shadow-md">
+      <p className="text-lg sm:text-xl font-semibold mb-4">
+        Rating: <span className="font-normal">{product.rating}</span>
+      </p>
+      <p className="text-md sm:text-lg mb-6">
+        <span className="font-semibold">About:</span> {product.description}
+      </p>
 
-            <p>{comment}</p>
-          </li>
-        ))}
-      </ul>
+      <div>
+        <h3 className="text-lg font-semibold mb-4">Reviews:</h3>
+        <ul className="flex flex-col md:flex-row md:flex-wrap md:space-x-4">
+          {product.reviews?.map(({ comment, reviewerName }) => (
+            <li
+              key={nanoid()}
+              className="border-b border-gray-300 pb-4 md:border-b-0 md:pb-0 flex-1 md:flex-initial mb-4 md:mb-0"
+            >
+              <h4 className="text-md font-bold mb-1">{reviewerName}</h4>
+              <p className="text-sm sm:text-base md:text-lg">{comment}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };
