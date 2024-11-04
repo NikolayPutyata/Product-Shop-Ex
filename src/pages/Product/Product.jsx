@@ -1,33 +1,31 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { Link, Outlet, useLocation, useParams } from "react-router-dom";
-import { addToCart } from "../../redux/cartOps";
-import { useDispatch } from "react-redux";
-import { fetchProductById } from "../../api";
+import { addToCart } from "../../redux/Cart/cartOps";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProductById } from "../../redux/Products/productsOps";
 import { nanoid } from "nanoid";
 import CarouselItem from "./CarouselItem";
+import { selectSingleProduct } from "../../redux/Products/singleProductSlice";
 
 const Product = () => {
-  const [product, setProduct] = useState({});
+  const dispatch = useDispatch();
+  const product = useSelector(selectSingleProduct);
 
   const location = useLocation();
   const backState = useRef(location.state || "/products");
-
-  const dispatch = useDispatch();
 
   const { productId } = useParams();
 
   useEffect(() => {
     const fetchAndSetProductById = async () => {
       try {
-        const data = await fetchProductById(productId);
-
-        setProduct(data);
+        await dispatch(fetchProductById(productId));
       } catch (e) {
         console.log(e);
       }
     };
     fetchAndSetProductById();
-  }, [productId]);
+  }, [productId, dispatch]);
 
   return (
     <>

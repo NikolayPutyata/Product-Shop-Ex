@@ -1,34 +1,37 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import SearchForm from "../../components/SearchForm/SearchForm";
-import { searchProductByQuery } from "../../api";
+import { searchProductByQuery } from "../../redux/Products/productsOps";
 import ListItem from "../../components/ListItem/ListItem";
 import FavoriteList from "../../components/FavoriteList/FavoriteList";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectSearchingProducts,
+  selectSearchingWord,
+} from "../../redux/Products/searchingProductsSlice";
 
 const SearchBox = () => {
-  const [searchProducts, setSearchProducts] = useState([]);
-  const [searchingWord, setSearchingWord] = useState("");
+  const dispatch = useDispatch();
+  const searchProducts = useSelector(selectSearchingProducts);
+  const searchingWord = useSelector(selectSearchingWord);
 
   useEffect(() => {
-    if (searchingWord.trim() === "") {
-      setSearchProducts([]);
-      return;
-    }
-
     const fetchByQuery = async () => {
-      try {
-        const { products } = await searchProductByQuery(searchingWord);
-        setSearchProducts(products);
-      } catch (e) {
-        console.log(e);
+      if (searchingWord.trim()) {
+        try {
+          await dispatch(searchProductByQuery(searchingWord));
+        } catch (e) {
+          console.log(e);
+        }
       }
     };
+
     fetchByQuery();
-  }, [searchingWord]);
+  }, [searchingWord, dispatch]);
 
   return (
     <div className="">
-      <div className="flex flex-col pl-12 pr-12 mt-4">
-        <SearchForm setSearchingWord={setSearchingWord} />
+      <div className="flex flex-col pl-12 pr-12 mt-4  lg:hidden">
+        <SearchForm />
       </div>
 
       <ul className="flex flex-wrap justify-center gap-4 mt-10">

@@ -2,10 +2,16 @@ import { useEffect, useState } from "react";
 import ListItem from "../../components/ListItem/ListItem";
 import { useLocation } from "react-router-dom";
 import Loader from "../../components/Loader/Loader";
-import { fetchProducts, getMoreProducts } from "../../api";
+import {
+  fetchProducts,
+  getMoreProducts,
+} from "../../redux/Products/productsOps";
+import { useDispatch, useSelector } from "react-redux";
+import { selectProducts } from "../../redux/Products/productsSlice";
 
 const Products = () => {
-  const [products, setProducts] = useState([]);
+  const dispatch = useDispatch();
+  const products = useSelector(selectProducts);
   const [skipElements, setskipElements] = useState(0);
 
   const location = useLocation();
@@ -13,24 +19,20 @@ const Products = () => {
   useEffect(() => {
     const fetchAndSetProducts = async () => {
       try {
-        const { products } = await fetchProducts();
-        console.log(products);
-
-        setProducts(products);
+        await dispatch(fetchProducts());
       } catch (e) {
         console.log(e);
       }
     };
     fetchAndSetProducts();
-  }, []);
+  }, [dispatch]);
 
   const loadPage = async (offset) => {
     try {
       const newSkip = skipElements + offset;
       setskipElements(newSkip);
 
-      const data = await getMoreProducts(newSkip);
-      setProducts(data.products);
+      await dispatch(getMoreProducts(newSkip));
     } catch (e) {
       console.log(e);
     }

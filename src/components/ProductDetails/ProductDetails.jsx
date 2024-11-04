@@ -1,7 +1,7 @@
 import { nanoid } from "nanoid";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { fetchProductById } from "../../api";
+import { fetchProductById } from "../../redux/Products/productsOps";
 
 const ProductDetails = () => {
   const [product, setProduct] = useState([]);

@@ -3,7 +3,7 @@ import {
   decreaseProductCount,
   deleteProduct,
   increaseProductCount,
-} from "../../redux/cartOps";
+} from "../../redux/Cart/cartOps";
 
 const CartItem = ({ product }) => {
   const dispatch = useDispatch();

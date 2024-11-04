@@ -1,23 +1,23 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCartProducts } from "../../redux/cartOps";
+import { fetchCartProducts } from "../../redux/Cart/cartOps";
 import {
   selectAmount,
   selectCartItems,
   selectIsLoading,
-} from "../../redux/cartSlice";
+} from "../../redux/Cart/cartSlice";
 import Loader from "../../components/Loader/Loader";
 import CartItem from "./CartItem";
 
 const Cart = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const cartItems = useSelector(selectCartItems);
   const isLoading = useSelector(selectIsLoading);
   const totalAmount = useSelector(selectAmount);
 
-  useEffect(() => {
-    dispatch(fetchCartProducts());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchCartProducts());
+  // }, [dispatch]);
 
   return (
     <div>

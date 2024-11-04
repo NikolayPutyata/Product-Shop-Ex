@@ -8,8 +8,17 @@ import NotFound from "./pages/NotFound/NotFound";
 import ProductDetails from "./components/ProductDetails/ProductDetails";
 import SearchBox from "./pages/SearchBox/SearchBox";
 import Footer from "./components/Footer/Footer";
+import { useEffect } from "react";
+import { fetchCartProducts } from "./redux/Cart/cartOps";
+import { useDispatch } from "react-redux";
 
 const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchCartProducts());
+  }, [dispatch]);
+
   return (
     <>
       <Navigation />

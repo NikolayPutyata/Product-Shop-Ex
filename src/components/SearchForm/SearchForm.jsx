@@ -1,17 +1,22 @@
 import { Field, Formik } from "formik";
 import { Form } from "formik";
+import { useDispatch } from "react-redux";
+import { setSearchingWord } from "../../redux/Products/searchingProductsSlice";
 
-const SearchForm = ({ setSearchingWord }) => {
+const SearchForm = () => {
+  const dispatch = useDispatch();
+
   const initialValues = {
     query: "",
   };
+
   const onSubmitFu = (values, options) => {
     if (values.query.trim() === "") {
       alert("write some!");
       return;
     }
 
-    setSearchingWord(values.query);
+    dispatch(setSearchingWord(values.query));
 
     options.resetForm();
   };
