@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../redux/Cart/cartOps";
-import { selectDisabledProductIds } from "../../redux/Products/productsSlice";
+import { selectDisabledProductTitles } from "../../redux/Products/productsSlice";
 
 const ItemBody = ({ product }) => {
   const dispatch = useDispatch();
-  const disabledProductIds = useSelector(selectDisabledProductIds);
+  const disabledProductTitles = useSelector(selectDisabledProductTitles);
 
   return (
     <>
@@ -14,10 +14,12 @@ const ItemBody = ({ product }) => {
         <div className="card-actions justify-end">
           <button
             className="btn btn-outline"
-            disabled={disabledProductIds.includes(product.id)}
+            disabled={disabledProductTitles.includes(product.title)}
             onClick={() => dispatch(addToCart(product))}
           >
-            Add to cart
+            {disabledProductTitles.includes(product.title)
+              ? "Added"
+              : "Add to cart"}
           </button>
         </div>
       </div>

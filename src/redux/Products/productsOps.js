@@ -3,20 +3,6 @@ import axios from "axios";
 
 export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
-  async (_, thunkAPI) => {
-    try {
-      const { data } = await axios.get(
-        "https://dummyjson.com/products?limit=12"
-      );
-      return data;
-    } catch (e) {
-      thunkAPI.rejectWithValue(e.message);
-    }
-  }
-);
-
-export const getMoreProducts = createAsyncThunk(
-  "products/getMoreProducts",
   async (skipElements, thunkAPI) => {
     try {
       const { data } = await axios.get(

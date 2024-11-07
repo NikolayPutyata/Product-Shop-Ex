@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { searchProductByQuery } from "./productsOps";
 
+
 const initialState = {
   searchingProducts: [],
   searchingWord: "",

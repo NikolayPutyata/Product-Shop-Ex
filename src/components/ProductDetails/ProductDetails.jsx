@@ -1,44 +1,32 @@
+import { FaStar, FaUser } from "react-icons/fa";
 import { nanoid } from "nanoid";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { fetchProductById } from "../../redux/Products/productsOps";
 
-const ProductDetails = () => {
-  const [product, setProduct] = useState([]);
-
-  const { productId } = useParams();
-
-  useEffect(() => {
-    const fetchAndSetProductById = async () => {
-      try {
-        const data = await fetchProductById(productId);
-        setProduct(data);
-      } catch (e) {
-        console.log(e);
-      }
-    };
-    fetchAndSetProductById();
-  }, [productId]);
-
+const ProductDetails = ({ product }) => {
   return (
-    <div className="p-4 sm:p-6 lg:p-8 bg-base-100 rounded-lg shadow-md">
-      <p className="text-lg sm:text-xl font-semibold mb-4">
-        Rating: <span className="font-normal">{product.rating}</span>
+    <div className="p-6 sm:p-8 lg:p-10 bg-white rounded-lg shadow-lg border border-gray-200">
+      <p className="flex items-center text-lg sm:text-xl font-semibold text-gray-800 mb-4">
+        <FaStar className="text-yellow-500 mr-2" />
+        Rating: <span className="font-normal ml-1">{product.rating}</span>
       </p>
-      <p className="text-md sm:text-lg mb-6">
-        <span className="font-semibold">About:</span> {product.description}
+
+      <p className="text-md sm:text-lg text-gray-700 mb-6 leading-relaxed">
+        {product.description}
       </p>
 
       <div>
-        <h3 className="text-lg font-semibold mb-4">Reviews:</h3>
-        <ul className="flex flex-col md:flex-row md:flex-wrap md:space-x-4">
+        <ul className="space-y-6 lg:space-y-0 md:space-x-6 md:flex md:flex-wrap">
           {product.reviews?.map(({ comment, reviewerName }) => (
             <li
               key={nanoid()}
-              className="border-b border-gray-300 pb-4 md:border-b-0 md:pb-0 flex-1 md:flex-initial mb-4 md:mb-0"
+              className="bg-gray-50 p-4 shadow-md border border-gray-200 flex-1 md:flex-initial md:w-[45%] lg:w-[30%] mb-4 md:mb-0"
             >
-              <h4 className="text-md font-bold mb-1">{reviewerName}</h4>
-              <p className="text-sm sm:text-base md:text-lg">{comment}</p>
+              <h4 className="flex items-center text-md font-bold text-gray-800 mb-2">
+                <FaUser className="text-gray-500 mr-2" />
+                {reviewerName}
+              </h4>
+              <p className="text-sm sm:text-base md:text-lg text-gray-600 leading-snug">
+                {comment}
+              </p>
             </li>
           ))}
         </ul>

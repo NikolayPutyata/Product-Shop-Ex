@@ -1,15 +1,18 @@
 import { useEffect, useRef } from "react";
-import { Link, Outlet, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { addToCart } from "../../redux/Cart/cartOps";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProductById } from "../../redux/Products/productsOps";
 import { nanoid } from "nanoid";
-import CarouselItem from "./CarouselItem";
 import { selectSingleProduct } from "../../redux/Products/singleProductSlice";
+import Carousel from "./Carousel";
+import ProductDetails from "../../components/ProductDetails/ProductDetails";
+import { selectDisabledProduct } from "../../redux/Products/productsSlice";
 
 const Product = () => {
   const dispatch = useDispatch();
   const product = useSelector(selectSingleProduct);
+  const isProductInCart = useSelector(selectDisabledProduct);
 
   const location = useLocation();
   const backState = useRef(location.state || "/products");
@@ -51,15 +54,10 @@ const Product = () => {
               <button
                 className="btn btn-primary btn-md lg:btn-lg w-full sm:w-auto "
                 onClick={() => dispatch(addToCart(product))}
+                disabled={isProductInCart}
               >
-                Add to cart
+                {isProductInCart ? "Added" : "Add to cart"}
               </button>
-              <Link
-                to="info"
-                className="btn btn-outline btn-md lg:btn-lg w-full sm:w-auto"
-              >
-                Info
-              </Link>
             </div>
             <div className="mt-6">
               <ul className="flex flex-wrap gap-2 justify-center lg:justify-start">
@@ -76,45 +74,11 @@ const Product = () => {
           </div>
         </div>
       </div>
+      <ProductDetails product={product} />
 
       {product.images && product.images.length <= 3 && (
-        <div className="flex flex-col lg:flex-row w-full gap-6 lg:gap-12 items-start lg:items-center">
-          <div className="carousel w-full lg:w-1/2">
-            <CarouselItem
-              id="slide1"
-              src={product.images && product.images[0]}
-              prevSlide="#slide3"
-              nextSlide="#slide2"
-            />
-            <CarouselItem
-              id="slide2"
-              src={product.images && product.images[1]}
-              prevSlide="#slide1"
-              nextSlide="#slide3"
-            />
-            <CarouselItem
-              id="slide3"
-              src={product.images && product.images[2]}
-              prevSlide="#slide2"
-              nextSlide="#slide1"
-            />
-          </div>
-          <p className="w-full lg:w-1/2 text-justify p-5">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus
-            saepe laudantium optio error nobis eligendi quibusdam deserunt iste,
-            aspernatur reprehenderit culpa ratione et deleniti ullam ipsam totam
-            ducimus, dignissimos non! Culpa, corporis. Voluptas, iure ipsum!
-            Architecto eum, asperiores sit obcaecati enim vero nemo sed at
-            placeat itaque ad ipsum nulla? Repudiandae ea quaerat, sit atque
-            quos velit quibusdam aliquam optio! Nesciunt rerum necessitatibus
-            exercitationem itaque quis quas voluptatem corrupti, vero iusto
-            architecto, aspernatur molestiae quo deleniti animi ratione ad
-            dolores, nostrum labore iure repellat at porro doloremque. Eaque,
-            voluptatem quo!
-          </p>
-        </div>
+        <Carousel product={product} />
       )}
-      <Outlet />
     </>
   );
 };

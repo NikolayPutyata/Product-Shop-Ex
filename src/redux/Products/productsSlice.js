@@ -1,6 +1,8 @@
 import { createSelector, createSlice } from "@reduxjs/toolkit";
-import { fetchProducts, getMoreProducts } from "./productsOps";
+import { fetchProducts } from "./productsOps";
 import { selectCartItems } from "../Cart/cartSlice";
+import { selectSingleProduct } from "./singleProductSlice";
+import { selectSearchingProducts } from "./searchingProductsSlice";
 
 const initialState = {
   products: [],
@@ -10,13 +12,9 @@ const productsSlice = createSlice({
   name: "listItems",
   initialState,
   extraReducers: (builder) => {
-    builder
-      .addCase(fetchProducts.fulfilled, (state, action) => {
-        state.products = action.payload.products;
-      })
-      .addCase(getMoreProducts.fulfilled, (state, action) => {
-        state.products = [...action.payload.products];
-      });
+    builder.addCase(fetchProducts.fulfilled, (state, action) => {
+      state.products = action.payload.products;
+    });
   },
 });
 
@@ -24,12 +22,27 @@ export const productsReducer = productsSlice.reducer;
 
 export const selectProducts = (state) => state.listItems.products;
 
-export const selectDisabledProductIds = createSelector(
-  [selectCartItems, selectProducts],
-  (cartItems, products) => {
-    const cartProductIds = new Set(cartItems?.map((product) => product.id));
-    return products
-      .filter((product) => cartProductIds?.has(product.id))
-      .map((product) => product.id);
+export const selectDisabledProductTitles = createSelector(
+  [selectCartItems, selectProducts, selectSearchingProducts],
+  (cartItems, products, searchingProducts) => {
+    const cartProductTitles = new Set(
+      cartItems?.map((product) => product.title)
+    );
+
+    const allProducts = [...products, ...searchingProducts];
+
+    return allProducts
+      .filter((product) => cartProductTitles.has(product.title))
+      .map((product) => product.title);
+  }
+);
+
+export const selectDisabledProduct = createSelector(
+  [selectCartItems, selectSingleProduct],
+  (cartItems, product) => {
+    const cartProductTitles = new Set(
+      cartItems?.map((cartItem) => cartItem.title)
+    );
+    return cartProductTitles.has(product.title);
   }
 );

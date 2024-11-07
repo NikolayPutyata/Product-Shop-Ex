@@ -1,42 +1,31 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import ListItem from "../../components/ListItem/ListItem";
-import { useLocation } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 import Loader from "../../components/Loader/Loader";
-import {
-  fetchProducts,
-  getMoreProducts,
-} from "../../redux/Products/productsOps";
+import { fetchProducts } from "../../redux/Products/productsOps";
 import { useDispatch, useSelector } from "react-redux";
 import { selectProducts } from "../../redux/Products/productsSlice";
 
 const Products = () => {
   const dispatch = useDispatch();
   const products = useSelector(selectProducts);
-  const [skipElements, setskipElements] = useState(0);
+
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const location = useLocation();
 
   useEffect(() => {
     const fetchAndSetProducts = async () => {
       try {
-        await dispatch(fetchProducts());
+        const currentSkip = Number(searchParams.get("skip")) || 0;
+
+        await dispatch(fetchProducts(currentSkip));
       } catch (e) {
         console.log(e);
       }
     };
     fetchAndSetProducts();
-  }, [dispatch]);
-
-  const loadPage = async (offset) => {
-    try {
-      const newSkip = skipElements + offset;
-      setskipElements(newSkip);
-
-      await dispatch(getMoreProducts(newSkip));
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  }, [dispatch, searchParams]);
 
   return (
     <div>
@@ -53,14 +42,20 @@ const Products = () => {
             <div className="join grid grid-cols-2 gap-4 w-auto">
               <button
                 className="join-item btn btn-outline"
-                onClick={() => loadPage(-12)}
-                disabled={skipElements === 0}
+                onClick={() => {
+                  const currentSkip = Number(searchParams.get("skip") || 0);
+                  setSearchParams({ skip: currentSkip - 12 });
+                }}
+                disabled={Number(searchParams.get("skip")) === 0}
               >
                 Previous page
               </button>
               <button
                 className="join-item btn btn-outline"
-                onClick={() => loadPage(12)}
+                onClick={() => {
+                  const currentSkip = Number(searchParams.get("skip") || 0);
+                  setSearchParams({ skip: currentSkip + 12 });
+                }}
               >
                 Next
               </button>
