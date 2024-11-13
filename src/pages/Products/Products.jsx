@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import ListItem from "../../components/ListItem/ListItem";
 import { useLocation, useSearchParams } from "react-router-dom";
 import Loader from "../../components/Loader/Loader";
@@ -11,21 +11,28 @@ const Products = () => {
   const products = useSelector(selectProducts);
 
   const [searchParams, setSearchParams] = useSearchParams();
-
   const location = useLocation();
+  const currentSkip = Number(searchParams.get("skip")) || 0;
+  const mainCondition = currentSkip === 0;
 
   useEffect(() => {
     const fetchAndSetProducts = async () => {
       try {
-        const currentSkip = Number(searchParams.get("skip")) || 0;
-
         await dispatch(fetchProducts(currentSkip));
       } catch (e) {
-        console.log(e);
+        console.error("Error fetching products:", e);
       }
     };
     fetchAndSetProducts();
-  }, [dispatch, searchParams]);
+  }, [dispatch, currentSkip]);
+
+  const handlePrevious = useCallback(() => {
+    setSearchParams({ skip: currentSkip - 12 });
+  }, [currentSkip, setSearchParams]);
+
+  const handleNext = useCallback(() => {
+    setSearchParams({ skip: currentSkip + 12 });
+  }, [currentSkip, setSearchParams]);
 
   return (
     <div>
@@ -41,21 +48,15 @@ const Products = () => {
           <div className="flex justify-center mt-5 mb-5">
             <div className="join grid grid-cols-2 gap-4 w-auto">
               <button
-                className="join-item btn btn-outline btn-md"
-                onClick={() => {
-                  const currentSkip = Number(searchParams.get("skip") || 0);
-                  setSearchParams({ skip: currentSkip - 12 });
-                }}
-                disabled={Number(searchParams.get("skip")) === 0}
+                className={`join-item btn btn-outline btn-md`}
+                onClick={handlePrevious}
+                disabled={mainCondition}
               >
                 Previous page
               </button>
               <button
                 className="join-item btn btn-outline btn-md"
-                onClick={() => {
-                  const currentSkip = Number(searchParams.get("skip") || 0);
-                  setSearchParams({ skip: currentSkip + 12 });
-                }}
+                onClick={handleNext}
               >
                 Next
               </button>

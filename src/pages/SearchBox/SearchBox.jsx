@@ -7,12 +7,15 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   selectSearchingProducts,
   selectSearchingWord,
+  selectSearchLoading,
 } from "../../redux/Products/searchingProductsSlice";
+import Loader from "../../components/Loader/Loader";
 
 const SearchBox = () => {
   const dispatch = useDispatch();
   const searchProducts = useSelector(selectSearchingProducts);
   const searchingWord = useSelector(selectSearchingWord);
+  const loading = useSelector(selectSearchLoading);
 
   useEffect(() => {
     const fetchByQuery = async () => {
@@ -30,15 +33,21 @@ const SearchBox = () => {
 
   return (
     <div className="">
-      <div className="flex flex-col pl-12 pr-12 mt-4  lg:hidden">
+      <div className="flex flex-col pl-12 pr-12 mt-4 mb-4 lg:hidden">
         <SearchForm />
       </div>
 
-      <ul className="flex flex-wrap justify-center gap-4 mt-10">
-        {searchProducts?.map((product) => (
-          <ListItem key={product.id} product={product} />
-        ))}
-      </ul>
+      {loading ? (
+        <div className="lg:mt-9">
+          <Loader />
+        </div>
+      ) : (
+        <ul className="flex flex-wrap justify-center gap-4 mt-10">
+          {searchProducts?.map((product) => (
+            <ListItem key={product.id} product={product} />
+          ))}
+        </ul>
+      )}
       <FavoriteList />
     </div>
   );

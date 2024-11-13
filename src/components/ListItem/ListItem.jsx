@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
 import ItemBody from "./ItemBody";
 import { useState, useEffect } from "react";
-import { FaAngleUp } from "react-icons/fa";
+import Badges from "./Badges";
 
 const ListItem = ({ product, location }) => {
   const [isFavorite, setIsFavorite] = useState(false);
@@ -27,36 +27,14 @@ const ListItem = ({ product, location }) => {
 
     setIsFavorite((prev) => !prev);
   };
-  console.log(product);
 
   return (
     <div className="card bg-base-100 w-80 shadow-xl relative">
-      <div className="flex flex-col gap-1 relative">
-        {product.rating > 4 ? (
-          <div className="flex gap-1 items-center absolute top-4 left-4">
-            <p className="text-xs text-green-500 italic">High Rating</p>
-            <FaAngleUp className="text-green-500" />
-          </div>
-        ) : null}
-
-        {product.stock > 0 ? (
-          <div
-            className={`flex gap-1 items-center absolute ${
-              product.rating > 4 ? "top-10" : "top-4"
-            } left-4`}
-          >
-            <p className="text-xs text-purple-500 italic">
-              In stock: {product.stock}
-            </p>
-          </div>
-        ) : null}
-      </div>
+      <Badges product={product} />
 
       <button className="p-0 absolute top-2 right-2" onClick={toggleFavorite}>
         <FaStar
-          className={`w-7 h-7 ${
-            isFavorite ? "text-[gold]" : "text-[#d3d3d3]"
-          } hover:text-[gold]`}
+          className={`w-7 h-7 ${isFavorite ? "text-[gold]" : "text-[#d3d3d3]"}`}
         />
       </button>
       <Link to={`/products/${product.id}`} state={location}>

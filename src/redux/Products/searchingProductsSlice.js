@@ -4,6 +4,7 @@ import { searchProductByQuery } from "../operations/productsOps.js";
 const initialState = {
   searchingProducts: [],
   searchingWord: "",
+  searchLoading: false,
 };
 
 const searchingProductsSlice = createSlice({
@@ -15,13 +16,22 @@ const searchingProductsSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(searchProductByQuery.fulfilled, (state, action) => {
-      state.searchingProducts = [...action.payload.products];
-    });
+    builder
+      .addCase(searchProductByQuery.fulfilled, (state, action) => {
+        state.searchLoading = false;
+        state.searchingProducts = [...action.payload.products];
+      })
+      .addCase(searchProductByQuery.pending, (state) => {
+        state.searchLoading = true;
+        state.searchingProducts = [];
+      });
   },
 });
 
 export const searchingProductsReducer = searchingProductsSlice.reducer;
+
+export const selectSearchLoading = (state) =>
+  state.searchingProducts.searchLoading;
 
 export const selectSearchingProducts = (state) =>
   state.searchingProducts?.searchingProducts;

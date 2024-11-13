@@ -13,7 +13,11 @@ const ItemBody = ({ product }) => {
         <p>${product.price}</p>
         <div className="card-actions justify-end">
           <button
-            className="btn btn-outline btn-primary"
+            className={`btn btn-outline btn-primary ${
+              disabledProductTitles.includes(product.title)
+                ? "disabled:bg-gray-100 disabled:text-gray-500 disabled:border-gray-300"
+                : ""
+            }`}
             disabled={disabledProductTitles.includes(product.title)}
             onClick={() => dispatch(addToCart(product))}
           >
