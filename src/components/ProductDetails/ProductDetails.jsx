@@ -1,12 +1,19 @@
 import { FaStar, FaUser } from "react-icons/fa";
 import { nanoid } from "nanoid";
+import { useSelector } from "react-redux";
+import { selectSingleProduct } from "../../redux/Products/singleProductSlice";
 
-const ProductDetails = ({ product }) => {
+const ProductDetails = () => {
+  const product = useSelector(selectSingleProduct);
+
   return (
     <div className="p-6 sm:p-8 lg:p-10 bg-white rounded-lg shadow-lg border border-gray-200">
       <p className="flex items-center text-lg sm:text-xl font-semibold text-gray-800 mb-4">
         <FaStar className="text-yellow-500 mr-2" />
         Rating: <span className="font-normal ml-1">{product.rating}</span>
+      </p>
+      <p className="text-lg sm:text-xl font-semibold text-gray-800 mb-4">
+        Warranty: {product.warrantyInformation}
       </p>
 
       <p className="text-md sm:text-lg text-gray-700 mb-6 leading-relaxed">

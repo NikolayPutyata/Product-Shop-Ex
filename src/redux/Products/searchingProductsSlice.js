@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { searchProductByQuery } from "./productsOps";
-
+import { searchProductByQuery } from "../operations/productsOps.js";
 
 const initialState = {
   searchingProducts: [],

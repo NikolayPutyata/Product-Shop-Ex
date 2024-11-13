@@ -1,5 +1,5 @@
 import { createSelector, createSlice } from "@reduxjs/toolkit";
-import { fetchProducts } from "./productsOps";
+import { fetchProducts } from "../operations/productsOps";
 import { selectCartItems } from "../Cart/cartSlice";
 import { selectSingleProduct } from "./singleProductSlice";
 import { selectSearchingProducts } from "./searchingProductsSlice";
@@ -12,9 +12,13 @@ const productsSlice = createSlice({
   name: "listItems",
   initialState,
   extraReducers: (builder) => {
-    builder.addCase(fetchProducts.fulfilled, (state, action) => {
-      state.products = action.payload.products;
-    });
+    builder
+      .addCase(fetchProducts.pending, (state) => {
+        state.products = [];
+      })
+      .addCase(fetchProducts.fulfilled, (state, action) => {
+        state.products = action.payload.products;
+      });
   },
 });
 

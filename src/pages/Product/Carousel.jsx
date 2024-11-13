@@ -1,6 +1,10 @@
+import { useSelector } from "react-redux";
 import CarouselItem from "./CarouselItem";
+import { selectSingleProduct } from "../../redux/Products/singleProductSlice";
 
-const Carousel = ({ product }) => {
+const Carousel = () => {
+  const product = useSelector(selectSingleProduct);
+
   return (
     <div>
       <div className="flex flex-col lg:flex-row w-full gap-6 lg:gap-12 items-start lg:items-center">

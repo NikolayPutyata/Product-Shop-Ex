@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import { lazy, Suspense, useEffect } from "react";
 import Navigation from "./components/Navigation/Navigation";
 import Footer from "./components/Footer/Footer";
-import { fetchCartProducts } from "./redux/Cart/cartOps";
+import { fetchCartProducts } from "./redux/operations/cartOps";
 import { useDispatch } from "react-redux";
 
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));

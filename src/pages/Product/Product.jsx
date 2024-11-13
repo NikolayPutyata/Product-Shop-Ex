@@ -1,13 +1,14 @@
 import { useEffect, useRef } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
-import { addToCart } from "../../redux/Cart/cartOps";
+import { addToCart } from "../../redux/operations/cartOps";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProductById } from "../../redux/Products/productsOps";
+import { fetchProductById } from "../../redux/operations/productsOps";
 import { nanoid } from "nanoid";
 import { selectSingleProduct } from "../../redux/Products/singleProductSlice";
 import Carousel from "./Carousel";
 import ProductDetails from "../../components/ProductDetails/ProductDetails";
 import { selectDisabledProduct } from "../../redux/Products/productsSlice";
+import { IoReturnDownBackOutline } from "react-icons/io5";
 
 const Product = () => {
   const dispatch = useDispatch();
@@ -32,8 +33,12 @@ const Product = () => {
 
   return (
     <>
-      <Link to={backState.current}>Back</Link>
       <div className="hero bg-base-200 px-4 lg:px-8">
+        <div className="absolute top-[72px] md:top-[96px] lg:top-[110px] xl:top-[120px] left-1">
+          <Link to={backState.current} className="btn btn-link">
+            <IoReturnDownBackOutline className="w-6 h-6 text-black hover:text-gray-500 transition-colors duration-300" />
+          </Link>
+        </div>
         <div className="hero-content flex-col lg:flex-row gap-6 lg:gap-12">
           <img
             src={
@@ -74,11 +79,10 @@ const Product = () => {
           </div>
         </div>
       </div>
-      <ProductDetails product={product} />
 
-      {product.images && product.images.length <= 3 && (
-        <Carousel product={product} />
-      )}
+      <ProductDetails />
+
+      {product.images && product.images.length <= 3 && <Carousel />}
     </>
   );
 };

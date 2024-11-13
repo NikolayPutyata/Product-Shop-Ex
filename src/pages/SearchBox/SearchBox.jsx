@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import SearchForm from "../../components/SearchForm/SearchForm";
-import { searchProductByQuery } from "../../redux/Products/productsOps";
+import { searchProductByQuery } from "../../redux/operations/productsOps";
 import ListItem from "../../components/ListItem/ListItem";
 import FavoriteList from "../../components/FavoriteList/FavoriteList";
 import { useDispatch, useSelector } from "react-redux";

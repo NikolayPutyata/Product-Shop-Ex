@@ -3,7 +3,7 @@ import { cartReducer } from "./Cart/cartSlice";
 import { productsReducer } from "./Products/productsSlice";
 import { singleProductSliceReducer } from "./Products/singleProductSlice";
 import { searchingProductsReducer } from "./Products/searchingProductsSlice";
-import { homeSliceReducer } from "./Products/homeSlice";
+import { homeSliceReducer } from "./Home/homeSlice";
 
 export const store = configureStore({
   reducer: {

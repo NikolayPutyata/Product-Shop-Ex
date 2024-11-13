@@ -1,45 +1,61 @@
 import { Link } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
-import { useState } from "react";
 import ItemBody from "./ItemBody";
+import { useState, useEffect } from "react";
+import { FaAngleUp } from "react-icons/fa";
 
 const ListItem = ({ product, location }) => {
-  const [isFavorited, setIsFavorited] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
 
-  const handleToggleFavorite = () => {
-    setIsFavorited((prev) => !prev);
-    addToFavoriteFu(product);
-  };
+  useEffect(() => {
+    const favoriteList = JSON.parse(localStorage.getItem("favorite")) || [];
+    setIsFavorite(favoriteList.some((item) => item.id === product.id));
+  }, [product.id]);
 
-  const addToFavoriteFu = (product) => {
-    const favorites = JSON.parse(localStorage.getItem("favorite")) || [];
+  const toggleFavorite = () => {
+    const favoriteList = JSON.parse(localStorage.getItem("favorite")) || [];
 
-    const isAlreadyFavorited = favorites.some(
-      (favorite) => favorite.id === product.id
-    );
-
-    if (!isAlreadyFavorited) {
-      favorites.push(product);
-    } else {
-      const updatedFavorites = favorites.filter(
+    if (isFavorite) {
+      const updatedFavorites = favoriteList.filter(
         (favorite) => favorite.id !== product.id
       );
       localStorage.setItem("favorite", JSON.stringify(updatedFavorites));
-      return;
+    } else {
+      favoriteList.push(product);
+      localStorage.setItem("favorite", JSON.stringify(favoriteList));
     }
 
-    localStorage.setItem("favorite", JSON.stringify(favorites));
+    setIsFavorite((prev) => !prev);
   };
+  console.log(product);
 
   return (
     <div className="card bg-base-100 w-80 shadow-xl relative">
-      <button
-        className="p-0 absolute top-2 right-2"
-        onClick={handleToggleFavorite}
-      >
+      <div className="flex flex-col gap-1 relative">
+        {product.rating > 4 ? (
+          <div className="flex gap-1 items-center absolute top-4 left-4">
+            <p className="text-xs text-green-500 italic">High Rating</p>
+            <FaAngleUp className="text-green-500" />
+          </div>
+        ) : null}
+
+        {product.stock > 0 ? (
+          <div
+            className={`flex gap-1 items-center absolute ${
+              product.rating > 4 ? "top-10" : "top-4"
+            } left-4`}
+          >
+            <p className="text-xs text-purple-500 italic">
+              In stock: {product.stock}
+            </p>
+          </div>
+        ) : null}
+      </div>
+
+      <button className="p-0 absolute top-2 right-2" onClick={toggleFavorite}>
         <FaStar
           className={`w-7 h-7 ${
-            isFavorited ? "text-[gold]" : "text-[#d3d3d3]"
+            isFavorite ? "text-[gold]" : "text-[#d3d3d3]"
           } hover:text-[gold]`}
         />
       </button>

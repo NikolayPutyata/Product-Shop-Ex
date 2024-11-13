@@ -14,12 +14,12 @@ const FavoriteList = () => {
   }, []);
 
   return (
-    <div>
-      <h2>Your Favorite</h2>
+    <div className="mb-8">
+      <h2 className="text-3xl font-semibold text-center my-4">Your Favorite</h2>
       <ul className="flex flex-wrap gap-4 justify-center">
         {favoriteList?.map((item) => (
           <li key={item.id}>
-            <div className="card bg-base-100 w-48 shadow-xl transform transition duration-200 hover:scale-105">
+            <div className="card bg-base-100 h-48 w-48 lg:h-72 lg:w-60 shadow-xl transform transition duration-200 hover:scale-105">
               <Link to={`/products/${item.id}`}>
                 <figure>
                   <img
@@ -28,9 +28,8 @@ const FavoriteList = () => {
                     className="rounded-t-lg"
                   />
                 </figure>
-                <div className="card-body">
-                  <h6 className="card-title">{item.title}</h6>
-                  <p>${item.price}</p>
+                <div className="flex flex-col p-2 items-center">
+                  <p className="text-center hidden lg:block">{item.title}</p>
                 </div>
               </Link>
             </div>

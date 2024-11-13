@@ -3,7 +3,7 @@ import {
   decreaseProductCount,
   deleteProduct,
   increaseProductCount,
-} from "../../redux/Cart/cartOps";
+} from "../../redux/operations/cartOps";
 
 const CartItem = ({ product }) => {
   const dispatch = useDispatch();
@@ -49,7 +49,7 @@ const CartItem = ({ product }) => {
             className="btn btn-outline btn-error ml-2 mt-2 sm:mt-0"
             onClick={() => dispatch(deleteProduct(product))}
           >
-            Видалити
+            Delete
           </button>
         </div>
       </li>

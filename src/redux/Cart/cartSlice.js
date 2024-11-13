@@ -1,5 +1,9 @@
 import { createSelector, createSlice, isAnyOf } from "@reduxjs/toolkit";
-import { addToCart, deleteProduct, fetchCartProducts } from "./cartOps";
+import {
+  addToCart,
+  deleteProduct,
+  fetchCartProducts,
+} from "../operations/cartOps";
 
 const initialState = {
   cartItems: [],

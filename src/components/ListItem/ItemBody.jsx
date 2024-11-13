@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../../redux/Cart/cartOps";
+import { addToCart } from "../../redux/operations/cartOps";
 import { selectDisabledProductTitles } from "../../redux/Products/productsSlice";
 
 const ItemBody = ({ product }) => {
@@ -13,7 +13,7 @@ const ItemBody = ({ product }) => {
         <p>${product.price}</p>
         <div className="card-actions justify-end">
           <button
-            className="btn btn-outline"
+            className="btn btn-outline btn-primary"
             disabled={disabledProductTitles.includes(product.title)}
             onClick={() => dispatch(addToCart(product))}
           >
