@@ -11,7 +11,7 @@ import {
 } from "../../redux/Products/searchingProductsSlice";
 import Loader from "../../components/Loader/Loader";
 
-const SearchBox = () => {
+const SearchPage = () => {
   const dispatch = useDispatch();
   const searchProducts = useSelector(selectSearchingProducts);
   const searchingWord = useSelector(selectSearchingWord);
@@ -53,4 +53,4 @@ const SearchBox = () => {
   );
 };
 
-export default SearchBox;
+export default SearchPage;

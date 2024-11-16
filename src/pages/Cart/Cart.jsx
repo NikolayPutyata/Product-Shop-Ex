@@ -6,6 +6,9 @@ import {
 } from "../../redux/Cart/cartSlice";
 import Loader from "../../components/Loader/Loader";
 import CartItem from "./CartItem";
+import { Link } from "react-router-dom";
+
+import { FaArrowRightLong } from "react-icons/fa6";
 
 const Cart = () => {
   const cartItems = useSelector(selectCartItems);
@@ -17,16 +20,28 @@ const Cart = () => {
       {isLoading ? (
         <Loader />
       ) : (
-        <div className="flex flex-col items-center w-full max-w-5xl px-4 sm:px-8 md:px-16 lg:px-24 mx-auto">
-          <ul className="flex flex-col w-full mt-6 space-y-4">
-            {cartItems.map((product) => (
-              <CartItem key={product.id} product={product} />
-            ))}
-          </ul>
-          <p className="text-xl font-semibold text-gray-800 mt-6">
-            Total: ${totalAmount}
-          </p>
-        </div>
+        <>
+          <div className="flex flex-col items-center w-full max-w-5xl px-4 sm:px-8 md:px-16 lg:px-24 mx-auto">
+            <ul className="flex flex-col w-full mt-6 space-y-4">
+              {cartItems.map((product) => (
+                <CartItem key={product.id} product={product} />
+              ))}
+            </ul>
+          </div>
+          <div className="flex flex-col gap-4 md:flex-row md:justify-between items-center my-6 max-w-5xl px-4 sm:px-8 md:px-16 lg:px-24 mx-auto">
+            <p className="text-xl font-semibold text-gray-900">
+              Total Amount: ${totalAmount}
+            </p>
+            <Link
+              to={"/order-info"}
+              className={`p-2 text-lg btn btn-outline btn-wide`}
+              disabled={cartItems.length === 0}
+            >
+              Continue
+              <FaArrowRightLong />
+            </Link>
+          </div>
+        </>
       )}
     </div>
   );

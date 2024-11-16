@@ -15,6 +15,20 @@ export const fetchProducts = createAsyncThunk(
   }
 );
 
+export const getProductByCategory = createAsyncThunk(
+  "products/category",
+  async ({ currentCategory, currentSkip }, thunkAPI) => {
+    try {
+      const { data } = await axios.get(
+        `https://dummyjson.com/products/category/${currentCategory}?limit=12&skip=${currentSkip}`
+      );
+      return data;
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e.message);
+    }
+  }
+);
+
 export const fetchProductById = createAsyncThunk(
   "products/fetchProductById",
   async (productId, thunkAPI) => {

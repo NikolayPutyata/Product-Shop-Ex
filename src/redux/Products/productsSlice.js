@@ -1,11 +1,12 @@
 import { createSelector, createSlice } from "@reduxjs/toolkit";
-import { fetchProducts } from "../operations/productsOps";
+import { fetchProducts, getProductByCategory } from "../operations/productsOps";
 import { selectCartItems } from "../Cart/cartSlice";
 import { selectSingleProduct } from "./singleProductSlice";
 import { selectSearchingProducts } from "./searchingProductsSlice";
 
 const initialState = {
   products: [],
+  total: 0,
 };
 
 const productsSlice = createSlice({
@@ -14,9 +15,19 @@ const productsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchProducts.pending, (state) => {
+        state.total = 0;
         state.products = [];
       })
       .addCase(fetchProducts.fulfilled, (state, action) => {
+        state.total = action.payload.total;
+        state.products = action.payload.products;
+      })
+      .addCase(getProductByCategory.pending, (state) => {
+        state.total = 0;
+        state.products = [];
+      })
+      .addCase(getProductByCategory.fulfilled, (state, action) => {
+        state.total = action.payload.total;
         state.products = action.payload.products;
       });
   },
@@ -25,6 +36,7 @@ const productsSlice = createSlice({
 export const productsReducer = productsSlice.reducer;
 
 export const selectProducts = (state) => state.listItems.products;
+export const selectTotalProducts = (state) => state.listItems.total;
 
 export const selectDisabledProductTitles = createSelector(
   [selectCartItems, selectProducts, selectSearchingProducts],

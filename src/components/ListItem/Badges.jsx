@@ -1,22 +1,27 @@
-import { FaAngleUp } from "react-icons/fa";
-
 const Badges = ({ product }) => {
   return (
     <div className="flex flex-col gap-1 relative">
       {product.rating > 4 ? (
         <div className="flex gap-1 items-center absolute top-4 left-4">
-          <p className="text-xs text-green-500 italic">High Rating</p>
-          <FaAngleUp className="text-green-500" />
+          <p
+            className="bg-transparent text-green-500 px-[4px] py-[2px] rounded-full text-xs
+          border border-green-500"
+          >
+            High Rating
+          </p>
         </div>
       ) : null}
 
       {product.stock > 0 ? (
         <div
           className={`flex gap-1 items-center absolute ${
-            product.rating > 4 ? "top-10" : "top-4"
+            product.rating > 4 ? "top-[42px]" : "top-4"
           } left-4`}
         >
-          <p className="text-xs text-purple-500 italic">
+          <p
+            className="bg-transparent text-purple-500 px-[4px] py-[2px] rounded-full text-xs
+          border border-purple-500"
+          >
             In stock: {product.stock}
           </p>
         </div>

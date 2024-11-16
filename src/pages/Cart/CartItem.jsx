@@ -12,7 +12,7 @@ const CartItem = ({ product }) => {
     <>
       <li
         key={product.id}
-        className="flex flex-col sm:flex-row justify-between items-center border p-4 mb-4"
+        className="flex flex-col sm:flex-row justify-between items-center border p-4 lg:px-4 lg:py-1"
       >
         <img
           src={product.thumbnail}
@@ -29,8 +29,13 @@ const CartItem = ({ product }) => {
 
           <div className="flex items-center justify-center w-full sm:w-auto mt-2 sm:mt-0">
             <button
-              className="btn btn-outline btn-square btn-sm border-gray-400 text-gray-700"
+              className={`btn btn-outline btn-square btn-sm border-gray-400 text-gray-700 ${
+                product.count === 1
+                  ? "disabled:bg-gray-100 disabled:text-gray-500 disabled:border-gray-300"
+                  : ""
+              }`}
               onClick={() => dispatch(decreaseProductCount(product))}
+              disabled={product.count === 1}
             >
               -
             </button>

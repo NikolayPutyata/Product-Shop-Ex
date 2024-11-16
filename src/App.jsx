@@ -10,7 +10,8 @@ const Products = lazy(() => import("./pages/Products/Products"));
 const Product = lazy(() => import("./pages/Product/Product"));
 const Cart = lazy(() => import("./pages/Cart/Cart"));
 const NotFound = lazy(() => import("./pages/NotFound/NotFound"));
-const SearchBox = lazy(() => import("./pages/SearchBox/SearchBox"));
+const SearchPage = lazy(() => import("./pages/Search/SearchPage"));
+const OrderInfoPage = lazy(() => import("./pages/OrderInfo/OrderInfoPage"));
 
 const App = () => {
   const dispatch = useDispatch();
@@ -28,7 +29,8 @@ const App = () => {
           <Route path="/products" element={<Products />} />
           <Route path="/products/:productId" element={<Product />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/search" element={<SearchBox />} />
+          <Route path="/order-info" element={<OrderInfoPage />} />
+          <Route path="/search" element={<SearchPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
