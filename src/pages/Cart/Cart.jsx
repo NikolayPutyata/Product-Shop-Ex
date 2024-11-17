@@ -34,7 +34,7 @@ const Cart = () => {
             </p>
             <Link
               to={"/order-info"}
-              className={`p-2 text-lg btn btn-outline btn-wide`}
+              className={`p-2 text-md btn btn-outline btn-wide`}
               disabled={cartItems.length === 0}
             >
               Continue

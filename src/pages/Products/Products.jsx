@@ -24,24 +24,26 @@ const Products = () => {
 
   const currentSkip = Number(searchParams.get("skip")) || 0;
   const currentCategory = searchParams.get("category") || "";
+  const currentSorters = searchParams.get("sorters") || "";
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if (currentCategory.trim() === "" || currentCategory.trim() === "all") {
-          await dispatch(fetchProducts(currentSkip));
-        } else {
-          await dispatch(
-            getProductByCategory({ currentCategory, currentSkip })
-          );
-        }
+        const isAllCategory =
+          currentCategory === "all" || currentCategory === "";
+        const action = isAllCategory ? fetchProducts : getProductByCategory;
+        const payload = isAllCategory
+          ? { skipElements: currentSkip, sorters: currentSorters }
+          : { currentCategory, currentSkip, sorters: currentSorters };
+
+        await dispatch(action(payload));
       } catch (e) {
         console.error("Error fetching products:", e);
       }
     };
 
     fetchData();
-  }, [currentCategory, currentSkip, dispatch]);
+  }, [currentCategory, currentSkip, currentSorters, dispatch]);
 
   return (
     <div>
@@ -50,6 +52,7 @@ const Products = () => {
           <Filters
             setSearchParams={setSearchParams}
             currentCategory={currentCategory}
+            currentSorters={currentSorters}
           />
           <ul
             className={`flex flex-wrap justify-center gap-4 ${
@@ -62,7 +65,7 @@ const Products = () => {
               </li>
             ))}
           </ul>
-          {totalProducts >= 12 && (
+          {totalProducts > 12 && (
             <PaginationControls
               setSearchParams={setSearchParams}
               currentSkip={currentSkip}
@@ -70,7 +73,6 @@ const Products = () => {
           )}
         </>
       ) : (
-        // <div className="flex justify-center items-center min-h-[600px]"></div>
         <Loader />
       )}
     </div>

@@ -13,13 +13,14 @@ const UserInfoPage = () => {
       <div className="flex flex-col md:flex-row w-full gap-8">
         <div className="flex-1">
           <MiniOrderList />
+          <div className="flex items-center justify-center m-3">
+            <Link to={"/cart"} className="btn btn-outline px-8 text-md">
+              <FaArrowLeftLong />
+              Back
+            </Link>
+          </div>
         </div>
         <div className="flex flex-col gap-3 items-center">
-          <Link to={"/cart"} className="btn btn-outline w-36 text-md">
-            <FaArrowLeftLong />
-            Back
-          </Link>
-
           <div className="flex-1">
             <UserInfoForm />
           </div>

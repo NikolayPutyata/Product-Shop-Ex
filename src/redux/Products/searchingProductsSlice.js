@@ -3,18 +3,12 @@ import { searchProductByQuery } from "../operations/productsOps.js";
 
 const initialState = {
   searchingProducts: [],
-  searchingWord: "",
   searchLoading: false,
 };
 
 const searchingProductsSlice = createSlice({
   name: "searchingProducts",
   initialState,
-  reducers: {
-    setSearchingWord: (state, action) => {
-      state.searchingWord = action.payload;
-    },
-  },
   extraReducers: (builder) => {
     builder
       .addCase(searchProductByQuery.fulfilled, (state, action) => {
@@ -35,8 +29,3 @@ export const selectSearchLoading = (state) =>
 
 export const selectSearchingProducts = (state) =>
   state.searchingProducts?.searchingProducts;
-
-export const selectSearchingWord = (state) =>
-  state.searchingProducts.searchingWord;
-
-export const { setSearchingWord } = searchingProductsSlice.actions;

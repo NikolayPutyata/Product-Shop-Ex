@@ -1,7 +1,19 @@
-const Filters = ({ currentCategory, setSearchParams }) => {
+const Filters = ({ currentCategory, currentSorters, setSearchParams }) => {
   const handleCategoryChange = (event) => {
     const selectedCategory = event.target.value;
-    setSearchParams({ category: selectedCategory });
+    setSearchParams((prevParams) => ({
+      ...Object.fromEntries(prevParams.entries()),
+      category: selectedCategory,
+      skip: 0,
+    }));
+  };
+
+  const handleSortersChange = (event) => {
+    const selectedSorters = event.target.value;
+    setSearchParams((prevParams) => ({
+      ...Object.fromEntries(prevParams.entries()),
+      sorters: selectedSorters,
+    }));
   };
 
   return (
@@ -23,6 +35,19 @@ const Filters = ({ currentCategory, setSearchParams }) => {
         <option value="sunglasses">Sunglasses</option>
         <option value="tablets">Tablets</option>
         <option value="vehicle">Vehicle</option>
+      </select>
+
+      <select
+        id="sorters"
+        className="select w-full max-w-[300px] md:max-w-[250px] border border-black"
+        value={currentSorters}
+        onChange={handleSortersChange}
+      >
+        <option value="none">No sorters</option>
+        <option value="high-rating">High rating</option>
+        <option value="low-rating">Low rating</option>
+        <option value="high-price">High price</option>
+        <option value="low-price">Low price</option>
       </select>
     </div>
   );

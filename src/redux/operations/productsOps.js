@@ -1,26 +1,40 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { parseSorters } from "./auxiliaryFunctions";
 
 export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
-  async (skipElements, thunkAPI) => {
+  async ({ skipElements, sorters }, thunkAPI) => {
     try {
-      const { data } = await axios.get(
-        `https://dummyjson.com/products?limit=12&skip=${skipElements}`
-      );
+      const sortParams = sorters !== "none" ? parseSorters(sorters) : {};
+      const { data } = await axios.get("https://dummyjson.com/products", {
+        params: {
+          limit: 12,
+          skip: skipElements,
+          ...sortParams,
+        },
+      });
       return data;
     } catch (e) {
-      thunkAPI.rejectWithValue(e.message);
+      return thunkAPI.rejectWithValue(e.message);
     }
   }
 );
 
 export const getProductByCategory = createAsyncThunk(
   "products/category",
-  async ({ currentCategory, currentSkip }, thunkAPI) => {
+  async ({ currentCategory, currentSkip, sorters }, thunkAPI) => {
     try {
+      const sortParams = sorters !== "none" ? parseSorters(sorters) : {};
       const { data } = await axios.get(
-        `https://dummyjson.com/products/category/${currentCategory}?limit=12&skip=${currentSkip}`
+        `https://dummyjson.com/products/category/${currentCategory}`,
+        {
+          params: {
+            limit: 12,
+            skip: currentSkip,
+            ...sortParams,
+          },
+        }
       );
       return data;
     } catch (e) {
@@ -62,7 +76,8 @@ export const searchProductByQuery = createAsyncThunk(
   async (query, thunkAPI) => {
     try {
       const { data } = await axios.get(
-        `https://dummyjson.com/products/search?q=${query}`
+        `https://dummyjson.com/products/search`,
+        { params: { q: query, limit: 12 } }
       );
       return data;
     } catch (e) {
