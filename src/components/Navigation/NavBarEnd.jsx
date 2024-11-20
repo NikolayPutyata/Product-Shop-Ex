@@ -1,16 +1,49 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useSearchParams, useNavigate } from "react-router-dom";
 import SearchForm from "../SearchForm/SearchForm";
 import SvgNav from "./SvgNav";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectCartItems } from "../../redux/Cart/cartSlice";
+import { useEffect } from "react";
+import { searchProductByQuery } from "../../redux/operations/productsOps";
 
 const NavBarEnd = () => {
+  const dispatch = useDispatch();
   const cartItems = useSelector(selectCartItems);
+  const navigate = useNavigate();
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const searchingWord = searchParams.get("query") || "";
+
+  useEffect(() => {
+    const fetchByQuery = async () => {
+      if (searchingWord.trim()) {
+        // Перевіряємо, чи користувач на сторінці /search з коректним параметром
+        if (window.location.pathname !== "/search") {
+          navigate({
+            pathname: "/search",
+            search: `?query=${searchingWord}`,
+          });
+        }
+
+        try {
+          await dispatch(searchProductByQuery(searchingWord));
+        } catch (e) {
+          console.error(e);
+        }
+      }
+    };
+
+    fetchByQuery();
+  }, [searchingWord, dispatch, navigate]);
+
+  const handleSearchSubmit = (query) => {
+    setSearchParams({ query });
+  };
 
   return (
     <>
       <div className="hidden w-72 lg:block">
-        <SearchForm />
+        <SearchForm setSearchParams={handleSearchSubmit} />
       </div>
 
       <NavLink

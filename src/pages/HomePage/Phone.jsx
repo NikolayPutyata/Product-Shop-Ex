@@ -13,8 +13,12 @@ const Phone = () => {
         <div className="mockup-phone ">
           <div className="camera"></div>
           <div className="display">
-            <div className="artboard artboard-demo phone-1 text-gray-800 text-lg font-semibold">
-              Hi.
+            <div className="artboard bg-black artboard-demo phone-1 text-gray-800 text-lg font-semibold">
+              <img
+                src="https://images.pexels.com/photos/1624496/pexels-photo-1624496.jpeg"
+                alt="mountains"
+                className="w-full"
+              />
             </div>
           </div>
         </div>

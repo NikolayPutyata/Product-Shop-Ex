@@ -33,10 +33,14 @@ const SearchPage = () => {
     fetchByQuery();
   }, [searchingWord, dispatch]);
 
+  const handleSearchSubmit = (query) => {
+    setSearchParams({ query });
+  };
+
   return (
     <div>
       <div className="flex flex-col pl-12 pr-12 mt-4 mb-4 lg:hidden">
-        <SearchForm setSearchParams={setSearchParams} />
+        <SearchForm setSearchParams={handleSearchSubmit} />
       </div>
 
       {loading ? (
