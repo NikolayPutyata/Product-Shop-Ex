@@ -11,7 +11,7 @@ const CartItem = ({ product }) => {
   return (
     <>
       <li
-        key={product.id}
+        key={product._id}
         className="flex flex-col sm:flex-row justify-between items-center border p-4 lg:px-4 lg:py-1"
       >
         <img

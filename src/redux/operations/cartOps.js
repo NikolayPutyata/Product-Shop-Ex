@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-axios.defaults.baseURL = "https://67054f20031fd46a830f7c32.mockapi.io/";
+axios.defaults.baseURL = "https://product-shop-ex-server.onrender.com";
 
 export const fetchCartProducts = createAsyncThunk(
   "fetchCartProducts",
@@ -31,7 +31,7 @@ export const deleteProduct = createAsyncThunk(
   "deleteProduct",
   async (product, thunkAPI) => {
     try {
-      const { data } = await axios.delete(`/products/${product.id}`);
+      const { data } = await axios.delete(`/products/${product._id}`);
       return data;
     } catch (e) {
       thunkAPI.rejectWithValue(e.message);
@@ -43,7 +43,7 @@ export const increaseProductCount = createAsyncThunk(
   "increaseProduct",
   async (product, thunkAPI) => {
     try {
-      await axios.put(`/products/${product.id}`, {
+      await axios.put(`/products/${product._id}`, {
         ...product,
         count: product.count + 1,
       });
@@ -58,7 +58,7 @@ export const decreaseProductCount = createAsyncThunk(
   "increaseProduct",
   async (product, thunkAPI) => {
     try {
-      await axios.put(`/products/${product.id}`, {
+      await axios.put(`/products/${product._id}`, {
         ...product,
         count: product.count - 1,
       });

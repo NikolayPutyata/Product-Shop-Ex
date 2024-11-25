@@ -60,7 +60,7 @@ const Products = () => {
             }`}
           >
             {products.map((product) => (
-              <li key={product.id}>
+              <li key={product._id}>
                 <ListItem product={product} location={location} />
               </li>
             ))}

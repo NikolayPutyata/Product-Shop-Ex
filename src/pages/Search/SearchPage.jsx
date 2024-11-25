@@ -50,7 +50,7 @@ const SearchPage = () => {
       ) : (
         <ul className="flex flex-wrap justify-center gap-4 mt-10">
           {searchProducts?.map((product) => (
-            <ListItem key={product.id} product={product} />
+            <ListItem key={product._id} product={product} />
           ))}
         </ul>
       )}
