@@ -9,15 +9,15 @@ const ListItem = ({ product, location }) => {
 
   useEffect(() => {
     const favoriteList = JSON.parse(localStorage.getItem("favorite")) || [];
-    setIsFavorite(favoriteList.some((item) => item.id === product._id));
-  }, [product._id]);
+    setIsFavorite(favoriteList.some((item) => item.id === product.id));
+  }, [product.id]);
 
   const toggleFavorite = () => {
     const favoriteList = JSON.parse(localStorage.getItem("favorite")) || [];
 
     if (isFavorite) {
       const updatedFavorites = favoriteList.filter(
-        (favorite) => favorite.id !== product._id
+        (favorite) => favorite.id !== product.id
       );
       localStorage.setItem("favorite", JSON.stringify(updatedFavorites));
     } else {
@@ -37,7 +37,7 @@ const ListItem = ({ product, location }) => {
           className={`w-7 h-7 ${isFavorite ? "text-[gold]" : "text-[#d3d3d3]"}`}
         />
       </button>
-      <Link to={`/products/${product._id}`} state={location}>
+      <Link to={`/products/${product.id}`} state={location}>
         <figure className="flex justify-center items-center w-full h-[300px] overflow-hidden">
           <img
             src={product.images[1] ? product.images[1] : product.thumbnail}

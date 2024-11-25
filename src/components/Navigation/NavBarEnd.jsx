@@ -17,7 +17,6 @@ const NavBarEnd = () => {
   useEffect(() => {
     const fetchByQuery = async () => {
       if (searchingWord.trim()) {
-        // Перевіряємо, чи користувач на сторінці /search з коректним параметром
         if (window.location.pathname !== "/search") {
           navigate({
             pathname: "/search",
