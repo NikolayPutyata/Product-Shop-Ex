@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-axios.defaults.baseURL = "https://67054f20031fd46a830f7c32.mockapi.io/";
+axios.defaults.baseURL = "https://product-shop-ex-server.onrender.com";
 
 export const fetchCartProducts = createAsyncThunk(
   "fetchCartProducts",
