@@ -2,7 +2,7 @@ import { NavLink, useSearchParams, useNavigate } from "react-router-dom";
 import SearchForm from "../SearchForm/SearchForm";
 import SvgNav from "./SvgNav";
 import { useDispatch, useSelector } from "react-redux";
-import { selectCartItems } from "../../redux/Cart/cartSlice";
+import { selectCartItems } from "../../redux/selectors";
 import { useEffect } from "react";
 import { searchProductByQuery } from "../../redux/operations/productsOps";
 

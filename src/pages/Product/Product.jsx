@@ -4,11 +4,13 @@ import { addToCart } from "../../redux/operations/cartOps";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProductById } from "../../redux/operations/productsOps";
 import { nanoid } from "nanoid";
-import { selectSingleProduct } from "../../redux/Products/singleProductSlice";
 import Carousel from "./Carousel";
 import ProductDetails from "../../components/ProductDetails/ProductDetails";
-import { selectDisabledProduct } from "../../redux/Products/productsSlice";
 import { IoReturnDownBackOutline } from "react-icons/io5";
+import {
+  selectDisabledProduct,
+  selectSingleProduct,
+} from "../../redux/selectors";
 
 const Product = () => {
   const dispatch = useDispatch();

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../redux/operations/cartOps";
-import { selectDisabledProductTitles } from "../../redux/Products/productsSlice";
+import { selectDisabledProductTitles } from "../../redux/selectors";
 
 const ItemBody = ({ product }) => {
   const dispatch = useDispatch();

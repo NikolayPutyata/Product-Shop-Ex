@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import CarouselItem from "./CarouselItem";
-import { selectSingleProduct } from "../../redux/Products/singleProductSlice";
+import { selectSingleProduct } from "../../redux/selectors";
 
 const Carousel = () => {
   const product = useSelector(selectSingleProduct);

@@ -1,7 +1,7 @@
 import { FaStar, FaUser } from "react-icons/fa";
 import { nanoid } from "nanoid";
 import { useSelector } from "react-redux";
-import { selectSingleProduct } from "../../redux/Products/singleProductSlice";
+import { selectSingleProduct } from "../../redux/selectors.js";
 
 const ProductDetails = () => {
   const product = useSelector(selectSingleProduct);
@@ -13,7 +13,7 @@ const ProductDetails = () => {
         Rating: <span className="font-normal ml-1">{product.rating}</span>
       </p>
       <p className="text-lg sm:text-xl font-semibold text-gray-800 mb-4">
-        Warranty: {product.warrantyInformation}
+        {product.warrantyInformation}
       </p>
 
       <p className="text-md sm:text-lg text-gray-700 mb-6 leading-relaxed">

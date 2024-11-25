@@ -1,13 +1,15 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { parseSorters } from "./auxiliaryFunctions";
+import { parseSorters } from "../utils/auxiliaryFunctions";
+
+const BASE_URL = "https://dummyjson.com/products";
 
 export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
   async ({ skipElements, sorters }, thunkAPI) => {
     try {
       const sortParams = sorters !== "none" ? parseSorters(sorters) : {};
-      const { data } = await axios.get("https://dummyjson.com/products", {
+      const { data } = await axios.get(BASE_URL, {
         params: {
           limit: 12,
           skip: skipElements,
@@ -27,7 +29,7 @@ export const getProductByCategory = createAsyncThunk(
     try {
       const sortParams = sorters !== "none" ? parseSorters(sorters) : {};
       const { data } = await axios.get(
-        `https://dummyjson.com/products/category/${currentCategory}`,
+        `${BASE_URL}/category/${currentCategory}`,
         {
           params: {
             limit: 12,
@@ -47,12 +49,10 @@ export const fetchProductById = createAsyncThunk(
   "products/fetchProductById",
   async (productId, thunkAPI) => {
     try {
-      const { data } = await axios.get(
-        `https://dummyjson.com/products/${productId}`
-      );
+      const { data } = await axios.get(`${BASE_URL}/${productId}`);
       return data;
     } catch (e) {
-      thunkAPI.rejectWithValue(e.message);
+      return thunkAPI.rejectWithValue(e.message);
     }
   }
 );
@@ -61,12 +61,10 @@ export const fetchMainProductById = createAsyncThunk(
   "products/fetchMainProductById",
   async (productId, thunkAPI) => {
     try {
-      const { data } = await axios.get(
-        `https://dummyjson.com/products/${productId}`
-      );
+      const { data } = await axios.get(`${BASE_URL}/${productId}`);
       return data;
     } catch (e) {
-      thunkAPI.rejectWithValue(e.message);
+      return thunkAPI.rejectWithValue(e.message);
     }
   }
 );
@@ -75,13 +73,12 @@ export const searchProductByQuery = createAsyncThunk(
   "products/searchProductByQuery",
   async (query, thunkAPI) => {
     try {
-      const { data } = await axios.get(
-        `https://dummyjson.com/products/search`,
-        { params: { q: query, limit: 12 } }
-      );
+      const { data } = await axios.get(`${BASE_URL}/search`, {
+        params: { q: query, limit: 12 },
+      });
       return data;
     } catch (e) {
-      thunkAPI.rejectWithValue(e.message);
+      return thunkAPI.rejectWithValue(e.message);
     }
   }
 );

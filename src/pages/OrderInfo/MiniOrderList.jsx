@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { selectCartItems } from "../../redux/Cart/cartSlice";
+import { selectCartItems } from "../../redux/selectors";
 import MiniListItem from "./MiniListItem";
 
 const MiniOrderList = () => {

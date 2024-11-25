@@ -21,5 +21,3 @@ const singleProductSlice = createSlice({
 });
 
 export const singleProductSliceReducer = singleProductSlice.reducer;
-
-export const selectSingleProduct = (state) => state.singleProduct.singleProduct;

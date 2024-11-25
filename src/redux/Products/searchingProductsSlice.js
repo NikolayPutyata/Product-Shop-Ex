@@ -23,9 +23,3 @@ const searchingProductsSlice = createSlice({
 });
 
 export const searchingProductsReducer = searchingProductsSlice.reducer;
-
-export const selectSearchLoading = (state) =>
-  state.searchingProducts.searchLoading;
-
-export const selectSearchingProducts = (state) =>
-  state.searchingProducts?.searchingProducts;

@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   selectSearchingProducts,
   selectSearchLoading,
-} from "../../redux/Products/searchingProductsSlice";
+} from "../../redux/selectors";
 import Loader from "../../components/Loader/Loader";
 
 const SearchPage = () => {

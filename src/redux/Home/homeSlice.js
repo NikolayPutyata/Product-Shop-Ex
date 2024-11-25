@@ -26,6 +26,3 @@ const homeSlice = createSlice({
 
 export const homeSliceReducer = homeSlice.reducer;
 export const { toggleNavMenu, handleLinkClick } = homeSlice.actions;
-
-export const selectMainHomeProduct = (state) => state.homeSlice.mainHomeProduct;
-export const selectNavMenuIsOpen = (state) => state.homeSlice.navMenuIsOpen;

@@ -1,7 +1,8 @@
 import MiniMenuItem from "./MiniMenuItem";
 import SvgNav from "./SvgNav";
 import { useDispatch, useSelector } from "react-redux";
-import { selectNavMenuIsOpen, toggleNavMenu } from "../../redux/Home/homeSlice";
+import { selectNavMenuIsOpen } from "../../redux/selectors.js";
+import { toggleNavMenu } from "../../redux/Home/homeSlice.js";
 
 const NavBarStart = () => {
   const dispatch = useDispatch();

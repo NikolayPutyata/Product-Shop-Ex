@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchMainProductById } from "../../redux/operations/productsOps";
-import { selectMainHomeProduct } from "../../redux/Home/homeSlice";
+import { selectMainHomeProduct } from "../../redux/selectors.js";
 
 const Hero = () => {
   const dispatch = useDispatch();

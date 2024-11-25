@@ -3,7 +3,7 @@ import {
   selectAmount,
   selectCartItems,
   selectIsLoading,
-} from "../../redux/Cart/cartSlice";
+} from "../../redux/selectors.js";
 import Loader from "../../components/Loader/Loader";
 import CartItem from "./CartItem";
 import { Link } from "react-router-dom";

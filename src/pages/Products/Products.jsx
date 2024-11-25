@@ -7,10 +7,7 @@ import {
   getProductByCategory,
 } from "../../redux/operations/productsOps";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  selectProducts,
-  selectTotalProducts,
-} from "../../redux/Products/productsSlice";
+import { selectProducts, selectTotalProducts } from "../../redux/selectors";
 import Filters from "./Filters";
 import PaginationControls from "./PaginationControls";
 

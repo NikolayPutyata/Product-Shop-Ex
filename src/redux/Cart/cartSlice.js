@@ -1,4 +1,4 @@
-import { createSelector, createSlice, isAnyOf } from "@reduxjs/toolkit";
+import { createSlice, isAnyOf } from "@reduxjs/toolkit";
 import {
   addToCart,
   deleteProduct,
@@ -53,13 +53,3 @@ const cartSlice = createSlice({
 });
 
 export const cartReducer = cartSlice.reducer;
-
-export const selectCartItems = (state) => state.cart.cartItems;
-
-export const selectIsLoading = (state) => state.cart.isLoading;
-
-export const selectAmount = createSelector([selectCartItems], (cartItems) => {
-  return cartItems
-    .reduce((amount, curr) => amount + curr.price * curr.count, 0)
-    .toFixed(2);
-});

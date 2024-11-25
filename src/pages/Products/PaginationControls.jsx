@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { useSelector } from "react-redux";
-import { selectTotalProducts } from "../../redux/Products/productsSlice";
+import { selectTotalProducts } from "../../redux/selectors";
 
 const PaginationControls = ({ setSearchParams, currentSkip }) => {
   const total = useSelector(selectTotalProducts);
