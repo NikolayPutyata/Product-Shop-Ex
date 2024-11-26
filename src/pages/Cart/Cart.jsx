@@ -24,7 +24,7 @@ const Cart = () => {
           <div className="flex flex-col items-center w-full max-w-5xl px-4 sm:px-8 md:px-16 lg:px-24 mx-auto">
             <ul className="flex flex-col w-full mt-6 space-y-4">
               {cartItems.map((product) => (
-                <CartItem key={product._id} product={product} />
+                <CartItem key={product.id} product={product} />
               ))}
             </ul>
           </div>
